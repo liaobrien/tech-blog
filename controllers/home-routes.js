@@ -4,9 +4,16 @@ const { Post, User, Comment } = require('../models');
 // GET all posts on the homepage
 router.get('/', async (req, res) => {
       try {
-            // will need to emebellish on this
-            const allPosts = await Post.findAll();
-            res.render(allPosts);
+            // finds all posts
+            const dbPostData = await Post.findAll();
+
+            const posts = dbPostData.map((post) => {
+                  post.get({ plain: true })
+            });
+            res.render('homepage', {
+                  posts,
+                  loggedIn: req.session.loggedIn,
+            });
       } catch (err) {
             console.log(err);
             res.status(500).json(err);
@@ -16,12 +23,30 @@ router.get('/', async (req, res) => {
 // GET one post
 router.get('/post/:id', async (req, res) => {
       try {
-            const postData = await Post.findbyPk(req.params.id);
+            const dbPostData = await Post.findbyPk(req.params.id, {
+                  include: [
+                        {
+                              model: Comment,
+                              attributes: [
+                                    'id',
+                                    'comment_text',
+                                    'post_id',
+                                    'user_id',
+                                    'comment_date',
+                              ],
+                        },
+                  ],
+            });
+            const post = dbPostData.get({ plain: true });
+            // Send over the 'loggedIn' session variable to the 'post' template
+            res.render('post', { post, loggedIn: req.session.loggedIn });
       } catch (err) {
             console.log(err);
             res.status(500).json(err);
       }
 })
+
+// may or may not need another GET here
 
 // login route
 router.get('/login', (req, res) => {
