@@ -30,10 +30,6 @@ Comment.init(
                         key: 'id'
                   }
             },
-            comment_date: {
-                  type: DataTypes.DATE,
-                  allowNull: false
-            }
       },
       {
             sequelize,
