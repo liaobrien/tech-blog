@@ -20,7 +20,6 @@ Post.init(
                   type: DataTypes.STRING,
                   allowNull: false,
             },
-            // i'm totally guessing on this column
             user_id: {
                   type: DataTypes.INTEGER,
                   references: {
