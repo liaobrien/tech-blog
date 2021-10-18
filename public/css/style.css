@@ -1,0 +1,25 @@
+:root {
+  --light: #a3e0dd;
+}
+
+body {
+  background-color: rgb(182, 182, 182);
+}
+
+nav {
+  background-color: var(--light);
+}
+
+.card-header {
+  font-size: 150%;
+  display: inline;
+  background-color: var(--light);
+}
+
+.card-subtitle {
+  font-size: 75%;
+}
+
+.text {
+  padding: 1rem 1rem;
+}
