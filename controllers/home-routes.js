@@ -4,22 +4,19 @@ const { Post, User, Comment } = require('../models');
 // GET all posts on the homepage
 router.get('/', async (req, res) => {
       try {
-            // finds all posts
-            const dbPostData = await Post.findAll({
+            const postData = await Post.findAll({
                   include: [
                         {
                               model: User,
-                              attributes: ['username']
-                        }
-                  ]
+                              attributes: ['username'],
+                        },
+                  ],
             });
-
-            const posts = dbPostData.map((post) => {
+            const posts = postData.map((post) =>
                   post.get({ plain: true })
-            });
+            );
             res.render('homepage', {
                   posts,
-                  loggedIn: req.session.loggedIn,
             });
       } catch (err) {
             console.log(err);
