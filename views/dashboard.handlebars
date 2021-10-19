@@ -1,9 +1,9 @@
 
 <h2 class="text-dark m-5">Welcome, {{user.username}}</h2>
-{{#each posts}}
+{{#each posts as |post|}}
 <div class="card m-5">
       <div class="card-header">
-            <h3 class="text-dark">{{title}}</h3>
+            <h3 class="text-dark">{{post.title}}</h3>
             <h4 class="text-dark">{{formatDate post_date}}</h4>
       </div>
 </div>
