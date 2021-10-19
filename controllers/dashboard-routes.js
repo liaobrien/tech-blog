@@ -8,13 +8,23 @@ router.get('/', withAuth, async (req, res) => {
       try {
             const dbPostData = await Post.findAll({
                   where: {
-                        user_id: req.session.user_id
-                  }
+                        user_id: req.session.id
+                  },
+                  include: [
+                        {
+                              model: User,
+                              attributes: ['username']
+                        }
+                  ]
             });
+            console.log(dbPostData);
 
             const posts = dbPostData.map((post) => post.get({ plain: true }));
-
-            res.render('dashboard', { posts });
+            console.log(posts);
+            res.render('dashboard', {
+                  layout: 'main',
+                  posts
+            });
       } catch (err) {
             console.log(err);
             res.status(500).json(err);
@@ -29,3 +39,5 @@ router.get('/', withAuth, async (req, res) => {
 
 
 // DELETE a user's post
+
+module.exports = router;

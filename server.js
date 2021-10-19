@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3001;
 // Set up sessions
 const sess = {
       secret: 'Super secret secret', // key to encyrpt the data
+      cookie: {},
       resave: false,
       saveUninitialized: false,
 };
