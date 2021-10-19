@@ -23,6 +23,11 @@ Comment.init(
                         key: 'id'
                   }
             },
+            comment_date: {
+                  type: DataTypes.DATE,
+                  allowNull: false,
+                  defaultValue: DataTypes.NOW
+            },
             user_id: {
                   type: DataTypes.INTEGER,
                   references: {

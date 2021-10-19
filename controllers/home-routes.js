@@ -29,23 +29,27 @@ router.get('/', async (req, res) => {
 // GET one post
 router.get('/post/:id', withAuth, async (req, res) => {
       try {
-            const dbPostData = await Post.findbyPk(req.params.id, {
+            const dbPostData = await Post.findByPk(req.params.id, {
                   include: [
                         {
                               model: Comment,
                               attributes: [
                                     'id',
                                     'comment_text',
+                                    'comment_date',
                                     'post_id',
                                     'user_id',
-                                    'comment_date',
                               ],
                         },
+                        {
+                              model: User,
+                              attributes: ['username']
+                        }
                   ],
             });
             const post = dbPostData.get({ plain: true });
             // Send over the 'loggedIn' session variable to the 'post' template
-            res.render('post', { post, loggedIn: req.session.loggedIn });
+            res.render('post', { post });
       } catch (err) {
             console.log(err);
             res.status(500).json(err);
