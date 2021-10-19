@@ -12,3 +12,22 @@
       </div>
 </div>
 
+<div class="card m-5">
+      <div class="card-header">
+            <h4 class="text-dark">Comments</h4>
+      </div>
+      <div class="text">
+            <ul class="list-group list-group-flush">
+                  {{#each comments as |comment|}}
+                  <li class="list-group-item">
+                        {{comment.comment_text}}
+                        <br /><br />
+                        - {{user.username}}, {{formatDate comment.comment_date}}
+                  </li>
+                  {{/each}}
+            </ul>
+      </div>
+</div>
+
+
+
