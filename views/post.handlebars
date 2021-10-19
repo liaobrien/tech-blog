@@ -3,7 +3,7 @@
 <div class="card m-5">
       <div class="card-header">
                   <h3 class="text-dark">{{post.title}}</h3>
-            <h5 class="text-dark">Posted by {{user.username}} on {{formatDate post.post_date}}</h5>
+            <h5 class="text-dark">Posted by {{post.user.username}} on {{formatDate post.post_date}}</h5>
       </div>
       <div class="text">
             <p>
@@ -18,11 +18,11 @@
       </div>
       <div class="text">
             <ul class="list-group list-group-flush">
-                  {{#each comments as |comment|}}
+                  {{#each post.comments}}
                   <li class="list-group-item">
-                        {{comment.comment_text}}
+                        {{comment_text}}
                         <br /><br />
-                        - {{user.username}}, {{formatDate comment.comment_date}}
+                        - {{user.username}}, {{formatDate comment_date}}
                   </li>
                   {{/each}}
             </ul>
