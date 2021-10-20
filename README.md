@@ -4,6 +4,12 @@
 
 This is a full-stack CMS-style blog application, similar to sites like WordPress. Users can sign up and/or log in to their own accounts to access others' posts as well as create their own.
 
+![screenshot of application](./public/images/screencap1.png)
+
+![screenshot of application](./public/images/screencap2.png)
+
+![screenshot of application](./public/images/screencap3.png)
+
 ## Table of Contents
 
 - [Installation](#installation)
