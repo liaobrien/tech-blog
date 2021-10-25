@@ -24,7 +24,7 @@ router.put('/:id', async (req, res) => {
             console.log(err);
             res.status(500).json(err);
       }
-})
+});
 
 // DELETE a post
 // router.delete('/:id')
