@@ -2,35 +2,7 @@ const router = require('express').Router();
 const { Post, Comment, User } = require('../models');
 const withAuth = require('../utils/auth');
 
-// I think I will need the following requests:
-// GET the logged in user's posts
-// router.get('/', withAuth, async (req, res) => {
-//       try {
-//             const dbPostData = await Post.findAll({
-//                   where: {
-//                         user_id: req.session.user_id
-//                   },
-//                   include: [
-//                         {
-//                               model: User,
-//                               attributes: ['username']
-//                         }
-//                   ]
-//             });
-//             console.log(dbPostData);
-
-//             const posts = dbPostData.map((post) => post.get({ plain: true }));
-//             console.log(posts);
-//             res.render('dashboard', {
-//                   posts, loggedIn: true
-//             });
-//       } catch (err) {
-//             console.log(err);
-//             res.status(500).json(err);
-//       }
-
-// });
-
+// GET logged in user's posts
 router.get('/', withAuth, async (req, res) => {
       try {
             const dashboard = await Post.findAll({
@@ -61,7 +33,35 @@ router.get('/', withAuth, async (req, res) => {
       };
 });
 
-// POST a new post
+// GET the edit/delete post page
+router.get('/edit/:id', withAuth, async (req, res) => {
+      try {
+            const editPost = await Post.findOne({
+                  where: {
+                        id: req.params.id
+                  },
+                  attributes: ['id',
+                        'title',
+                        'content'
+                  ],
+            });
+
+            const newEdit = await editPost
+            if (!newEdit) {
+                  res.status(404).json({ message: 'No post found with this id!' });
+                  return;
+            }
+
+            const post = newEdit.get({ plain: true });
+            res.render('edit-post', { post, loggedIn: true });
+      }
+
+      catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+      };
+})
+
 
 
 // PUT (update) a user's post

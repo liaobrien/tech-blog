@@ -7,15 +7,17 @@
             <form>
                   <div class="form-group">
                         <h4>Title</h4>
-                        <input type="text" name="post-title" id="" class="form-control" value="Hello" />
+                        <input type="text" name="post-title" id="" class="form-control" value="{{post.title}}" />
                         <br />
                         <h4>Content</h4>
-                        <input type="text" name="post-content" id="" class="form-control" value="World" />
+                        <input type="text" name="post-content" id="" class="form-control" value="{{post.content}}" />
                         <br />
                         <button type="submit" class="btn btn-primary">Save</button>
+                        <br />
+                        <button type="button" class="btn btn-danger">Delete Post</button>
                   </div>
             </form>
-            <br />
-            <button class="btn btn-danger">Delete Post</button>
+            
+            
       </div>
 </div>
