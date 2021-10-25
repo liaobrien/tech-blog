@@ -21,10 +21,11 @@ router.get('/', withAuth, async (req, res) => {
                               attributes: ['username']
                         }
                   ]
-            }) //runs a get query to get all of users previous posts.
-            const generateDash = await dashboard
-            const posts = generateDash.map(post => post.get({ plain: true }));
-            res.render('dashboard', { posts, loggedIn: true }); //maps all the posts in an array and then renders them to the dashboard 
+            });
+            // maps all the posts in an array and then renders them to the dashboard 
+            const posts = dashboard.map(post => post.get({ plain: true }));
+
+            res.render('dashboard', { posts, loggedIn: true });
       }
 
       catch (err) {
@@ -33,7 +34,7 @@ router.get('/', withAuth, async (req, res) => {
       };
 });
 
-// GET the edit/delete post page
+// GET the edit/delete post page (completely aside from actually updating/deleting for now)
 router.get('/edit/:id', withAuth, async (req, res) => {
       try {
             const editPost = await Post.findOne({
@@ -46,13 +47,12 @@ router.get('/edit/:id', withAuth, async (req, res) => {
                   ],
             });
 
-            const newEdit = await editPost
-            if (!newEdit) {
+            if (!editPost) {
                   res.status(404).json({ message: 'No post found with this id!' });
                   return;
             }
 
-            const post = newEdit.get({ plain: true });
+            const post = editPost.get({ plain: true });
             res.render('edit-post', { post, loggedIn: true });
       }
 
@@ -60,13 +60,6 @@ router.get('/edit/:id', withAuth, async (req, res) => {
             console.log(err);
             res.status(500).json(err);
       };
-})
-
-
-
-// PUT (update) a user's post
-
-
-// DELETE a user's post
+});
 
 module.exports = router;
